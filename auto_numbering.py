@@ -28,7 +28,10 @@ def theme_number(theme_stack, tab):
 def theme_string(theme, tab):
     theme_list1 = ['1', '1', '1', '1', '1', '1']
     theme_list2 = ['. ', '. ', ') ', ' ', ' ', ' ']
-    t1 = chr(ord(theme_list1[tab]) + theme - 1)
+#    theme_list3 = [u'‡T']
+
+#    t1 = chr(ord(theme_list1[tab]) + theme - 1)
+    t1 = str(theme)
     t2 = theme_list2[tab]
     return t1 + t2
 
