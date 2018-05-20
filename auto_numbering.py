@@ -26,8 +26,8 @@ def theme_number(theme_stack, tab):
 
 # タブ数に応じたテーマを考慮してをテーマ文字列を返す。
 def theme_string(theme, tab):
-    theme_list1 = ['1', '1', '1','1']
-    theme_list2 = ['. ', '. ', ') ',' ']
+    theme_list1 = ['1', '1', '1', '1', '1', '1']
+    theme_list2 = ['. ', '. ', ') ', ' ', ' ', ' ']
     t1 = chr(ord(theme_list1[tab]) + theme - 1)
     t2 = theme_list2[tab]
     return t1 + t2
