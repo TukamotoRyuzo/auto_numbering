@@ -2,7 +2,7 @@
 import sys
 
 # s“ª‚Ìƒ^ƒu•¶š‚Ì”‚ğ”‚¦‚é
-def count_tab(str):
+def count_tab(line):
     tab = 0
     for c in line:
         if c == '\t':
