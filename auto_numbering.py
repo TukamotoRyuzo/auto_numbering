@@ -39,12 +39,19 @@ if __name__ == '__main__':
     with open(args[1], "r") as file:
         strings = file.readlines()
         theme_stack = []
+        enable = True
 
         for line in strings:
             tab = count_tab(line)
-    
+            
+            # '#'‚ªŠÜ‚Ü‚ê‚és‚ª—ˆ‚½‚çŽŸ‚É'#'‚ªŒ©‚Â‚©‚é‚Ü‚Å–³Ž‹‚·‚é
+            if line.count('#') > 0:
+                enable = not enable
+                print(line, end = "")
+                continue
+
             # ‹ós‚Å‚È‚¯‚ê‚ÎÌ”Ô
-            if len(line) > tab + 1:
+            if enable == True and len(line) > tab + 1:
                 theme = theme_number(theme_stack, tab) 
                 theme_str = theme_string(theme, tab)
                 tabs = line[0:tab]
