@@ -8,7 +8,7 @@ def count_tab(line):
         if c == '\t':
             tab += 1
         else:
-        	break
+            break
     return tab
 
 # 引数チェック。引数がない場合は使い方を表示して終了。
@@ -36,12 +36,13 @@ if __name__ == '__main__':
     check_args(args)
     theme_list = []
 
+    # テーマ文字列の初期化
     with open("moji.txt", "r") as file:
         lines = file.readlines()
         for line in lines:
             theme_list.append(line.split(" "))
-    print(theme_list)
 
+    # ファイルを読み込んで採番
     with open(args[1], "r") as file:
         strings = file.readlines()
         theme_stack = []
@@ -49,9 +50,18 @@ if __name__ == '__main__':
         i = 0
         for line in strings:
             tab = count_tab(line)
+
+            # 子テーマが1行しかない場合は採番しない
+            if i > 0 and i < len(strings):
+                tab_before = count_tab(strings[i-1])
+                tab_after = count_tab(strings[i+1])
+                # print("b:" + str(tab_before) +  "a:" + str(tab_after) , end = "")
+                if tab > tab_before and tab > tab_after:
+                    print(line, end = "")
+                    i += 1
+                    continue
+
             i += 1
-            tab2 = count_tab(strings[i+1])
-            
             # '#'が含まれる行が来たら次に'#'が見つかるまで無視する
             if line.count('#') > 0:
                 enable = not enable
@@ -67,3 +77,4 @@ if __name__ == '__main__':
                 print(tabs + theme_str + body, end = "")
             else:
                 print(line, end = "")
+
