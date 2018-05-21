@@ -7,6 +7,8 @@ def count_tab(line):
     for c in line:
         if c == '\t':
             tab += 1
+        else:
+        	break
     return tab
 
 # 引数チェック。引数がない場合は使い方を表示して終了。
@@ -25,27 +27,30 @@ def theme_number(theme_stack, tab):
     return theme_stack[tab];
 
 # タブ数に応じたテーマを考慮してをテーマ文字列を返す。
-def theme_string(theme, tab):
-    theme_list1 = ['1', '1', '1', '1', '1', '1']
-    theme_list2 = ['. ', '. ', ') ', ' ', ' ', ' ']
-#    theme_list3 = [u'Ⅰ']
-
-#    t1 = chr(ord(theme_list1[tab]) + theme - 1)
-    t1 = str(theme)
-    t2 = theme_list2[tab]
-    return t1 + t2
+def theme_string(list, theme, tab):
+    t1 = list[tab][theme - 1]
+    return t1
 
 if __name__ == '__main__':
     args = sys.argv
     check_args(args)
+    theme_list = []
+
+    with open("moji.txt", "r") as file:
+        lines = file.readlines()
+        for line in lines:
+            theme_list.append(line.split(" "))
+    print(theme_list)
 
     with open(args[1], "r") as file:
         strings = file.readlines()
         theme_stack = []
         enable = True
-
+        i = 0
         for line in strings:
             tab = count_tab(line)
+            i += 1
+            tab2 = count_tab(strings[i+1])
             
             # '#'が含まれる行が来たら次に'#'が見つかるまで無視する
             if line.count('#') > 0:
@@ -56,7 +61,7 @@ if __name__ == '__main__':
             # 空行でなければ採番
             if enable == True and len(line) > tab + 1:
                 theme = theme_number(theme_stack, tab) 
-                theme_str = theme_string(theme, tab)
+                theme_str = theme_string(theme_list, theme, tab)
                 tabs = line[0:tab]
                 body = line[tab:len(line)]
                 print(tabs + theme_str + body, end = "")
